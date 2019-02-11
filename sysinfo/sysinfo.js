@@ -32,7 +32,7 @@ exports.monitor = (req, res) => {
         data.uptime = os.uptime().toFixed(0).toHHMMSS()
         return data
     }).then(function(data){
-        checkDiskSpace('C:/').then((diskSpace) => { // --> windows format
+        checkDiskSpace(config.main_disk).then((diskSpace) => {
             data.disk = {}
             data.disk.total = formatBytes(diskSpace.size);
             data.disk.free = formatBytes(diskSpace.free);
