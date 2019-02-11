@@ -2,6 +2,7 @@ const osutils = require('os-utils')
 const os = require('os')
 const Promise = require('promise')
 const checkDiskSpace = require('check-disk-space')
+const config = require('../config/config.js')
 
 exports.monitor = (req, res) => {
     let data = {}
@@ -20,10 +21,12 @@ exports.monitor = (req, res) => {
         // data.free_mem_percent = osutils.freememPercentage().toFixed(2) +"%"
         // data.uptime = formatTime(osutils.sysUptime())
         let cpus = os.cpus()
+        data.srv_name = config.srv_name
         data.platform = os.platform()
         data.cpu = cpus[0].model
         data.num_cpu = cpus.length
         data.cpu_usage = result + "%"
+        data.cpu_usage2 = result //--> without '%'
         data.total_mem = formatBytes(os.totalmem())
         data.free_mem = formatBytes(os.freemem())
         data.uptime = os.uptime().toFixed(0).toHHMMSS()
