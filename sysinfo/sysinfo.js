@@ -34,8 +34,11 @@ exports.monitor = (req, res) => {
     }).then(function(data){
         checkDiskSpace(config.main_disk).then((diskSpace) => {
             data.disk = {}
+            data.disk2 = {}
             data.disk.total = formatBytes(diskSpace.size);
             data.disk.free = formatBytes(diskSpace.free);
+            data.disk2.total = diskSpace.size
+            data.disk2.free = diskSpace.free
             res.status(200).send({status:"200",message:"success",data:data})
         })
     })
